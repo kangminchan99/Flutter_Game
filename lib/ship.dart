@@ -1,28 +1,29 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:flutter_game/engine.dart';
+import 'engine.dart';
 
-const SHIP_SIZE = 60;
+const SHIP_SIZE = 60.0;
 
-class Ship extends GetMaterialController {
-  void move(int direction) {}
-
+class Ship extends GameControl {
   @override
-  void start(Canvas canvas, Size size, int current) {
-    var width = SHIP_SIZE;
-    var height = SHIP_SIZE;
-    var x = (size.width - width) / 2;
-    var y = size.height - SHIP_SIZE * 2;
+  void onStart(Canvas canvas, Size size, int current) {
+    width = SHIP_SIZE;
+    height = SHIP_SIZE;
+    x = (size.width - width) / 2;
+    y = size.height - SHIP_SIZE * 2;
+    paint.color = Colors.blue;
   }
 
   @override
-  void tick(Canvas canvas, Size size, int current) {
+  void tick(Canvas canvas, Size size, int current, int term) {
+    x = x + _direction;
+
     const radius = SHIP_SIZE / 2;
-    var width = SHIP_SIZE;
-    var x = (size.width - width) / 2;
-    var y = size.height - SHIP_SIZE * 2;
-    canvas.drawCircle(Offset(x + radius, y + radius), radius, Paint());
+    canvas.drawCircle(Offset(x + radius, y + radius), radius, paint);
   }
+
+  void move(int direction) {
+    _direction = direction;
+  }
+
+  int _direction = 0;
 }
