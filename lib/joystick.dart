@@ -34,6 +34,7 @@ class Joystick extends GameControl {
 
   @override
   void onHorizontalDragEnd(DragEndDetails details) {
+    // 0을 리턴해서 우주선이 정지하도록 한다.
     onMove(0);
   }
 }
